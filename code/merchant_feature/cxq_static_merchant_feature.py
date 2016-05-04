@@ -27,7 +27,8 @@ if __name__ == "__main__":
             merchantObject.budget = budget
             merchantObject.numOfLoc = numOfLoc
             map[merchantId] = merchantObject
-    koubeiTrain = "../../gen_data/ijcai2016_koubei_trainAfter7"
+    #koubeiTrain = "../../gen_data/ijcai2016_koubei_trainAfter7"
+    koubeiTrain = str(sys.argv[1])
     with open(koubeiTrain,"r") as fin:
         for line in fin:
             frags = line.strip().split(",")
@@ -75,7 +76,8 @@ if __name__ == "__main__":
             result[merchanId]["sigma_location"] = numpy.var(each_loc_bought)
         else:
             result[merchanId]["sigma_location"] = 0.0
-    merchantFatureFile = "../../gen_data/cxq_koubei_merchant_feature_After7"
+    #merchantFatureFile = "../../gen_data/cxq_koubei_merchant_feature_After7"
+    merchantFatureFile = str(sys.argv[2])
     myfile = file(merchantFatureFile,"w")
     cPickle.dump(result,myfile)
 
