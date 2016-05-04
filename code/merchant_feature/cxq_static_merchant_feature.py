@@ -27,7 +27,7 @@ if __name__ == "__main__":
             merchantObject.budget = budget
             merchantObject.numOfLoc = numOfLoc
             map[merchantId] = merchantObject
-    koubeiTrain = "../../gen_data/ijcai2016_koubei_trainBefore11"
+    koubeiTrain = "../../gen_data/ijcai2016_koubei_trainAfter7"
     with open(koubeiTrain,"r") as fin:
         for line in fin:
             frags = line.strip().split(",")
@@ -71,8 +71,11 @@ if __name__ == "__main__":
             result[merchanId]["each_location"][locationId]["per_day_loc_bought"] = float(boughts)/(days+0.1)
             result[merchanId]["each_location"][locationId]["percent_loc_user"] = float(users)/(result[merchanId]["numOfUser"]+0.1)
             result[merchanId]["each_location"][locationId]["per_day_loc_user"] = float(users)/(days+0.1)
-        result[merchanId]["sigma_location"]  = numpy.var(each_loc_bought)
-    merchantFatureFile = "../../gen_data/cxq_koubei_merchant_feature_Before11"
+        if len(each_loc_bought) > 0 :
+            result[merchanId]["sigma_location"] = numpy.var(each_loc_bought)
+        else:
+            result[merchanId]["sigma_location"] = 0.0
+    merchantFatureFile = "../../gen_data/cxq_koubei_merchant_feature_After7"
     myfile = file(merchantFatureFile,"w")
     cPickle.dump(result,myfile)
 
