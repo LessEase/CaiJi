@@ -3,7 +3,7 @@
 
 def getUserFeature(map, uid, lid, mid, isTrain):
 
-	features = [0.0] * ()
+	features = [0.0] * 9 
 	if uid not in map:
 		return features
 
@@ -32,12 +32,10 @@ def getUserFeature(map, uid, lid, mid, isTrain):
 		merchant = user["merchant"][mid]
 		for month in months:
 			if month in merchant:
-				features[pos] = merchant[month]
+				features[pos] = float(merchant[month])
 			pos += 1
 
 				
 	
 	return features
 		
-
-	

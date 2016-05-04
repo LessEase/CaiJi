@@ -2,7 +2,7 @@
 #_*_coding: utf-8 _*_
 
 def getLocationFeature(map, lid, isTrain):
-	features = [0.0] * (4*6+1)   
+	features = [0.0] * (5*6+1)   
 
 	if lid not in map:
 		return lid
@@ -26,6 +26,11 @@ def getLocationFeature(map, lid, isTrain):
 		if month in map[lid]["num_of_merchant"]:
 			features[pos] = map[lid]["num_of_merchant"][month]
 		pos += 1
+
+		if month in map[lid]["avg_buy_per_user"]:
+			features[pos] = map[lid]["avg_buy_per_user"][month]
+		pos += 1
+
 
 		if month in map[lid]["avg_buy_per_merchant"]:
 			features[pos] = map[lid]["avg_buy_per_merchant"][month]

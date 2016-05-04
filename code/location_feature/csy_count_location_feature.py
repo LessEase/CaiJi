@@ -19,8 +19,8 @@ def ProcessMap(locationFeatureMap):
 	resultMap = dict()
 
 	for lid in locationFeatureMap:
-		resultMap["total"] = locationFeatureMap[lid].num_of_merchant
 		resultMap[lid] = dict()
+		resultMap[lid]["total"] = locationFeatureMap[lid].num_of_merchant
 		resultMap[lid]["num_of_buy"] = dict()
 		resultMap[lid]["num_of_user"] = dict()
 		resultMap[lid]["num_of_merchant"] = dict()
