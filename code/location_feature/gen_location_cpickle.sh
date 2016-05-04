@@ -8,6 +8,6 @@
 
 
 #python csy_count_location_feature.py  infile  outfile
-python csy_count_location_feature.py ../../gen_data/ijcai2016_koubei_train_Before11 ../../gen_data/location_feature_Before11.pkl
-python csy_count_location_feature.py ../../gen_data/ijcai2016_koubei_train_After7 ../../gen_data/location_feature_After7.pkl
+python csy_count_location_feature.py ../../gen_data/ijcai2016_koubei_trainBefore11 ../../gen_data/location_feature_Before11.pkl
+python csy_count_location_feature.py ../../gen_data/ijcai2016_koubei_trainAfter7 ../../gen_data/location_feature_After7.pkl
 
