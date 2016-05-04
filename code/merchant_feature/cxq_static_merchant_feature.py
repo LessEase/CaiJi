@@ -1,6 +1,7 @@
 import sys
 import re
 import cPickle
+import numpy
 
 map = dict()
 
@@ -26,8 +27,6 @@ if __name__ == "__main__":
             merchantObject.budget = budget
             merchantObject.numOfLoc = numOfLoc
             map[merchantId] = merchantObject
-    temp_map = dict()
-    pre_merchant = ""
     koubeiTrain = "../../gen_data/ijcai2016_koubei_trainBefore11"
     with open(koubeiTrain,"r") as fin:
         for line in fin:
@@ -64,6 +63,7 @@ if __name__ == "__main__":
             days = len(values["date"])
             boughts = values["bought"]
             each_loc_bought.append(boughts)
+            result[merchanId]["each_location"][locationId] = dict()
             result[merchanId]["each_location"][locationId]["boughts"] = boughts
             result[merchanId]["each_location"][locationId]["users"] = users
             result[merchanId]["each_location"][locationId]["days"] = days
@@ -71,6 +71,7 @@ if __name__ == "__main__":
             result[merchanId]["each_location"][locationId]["per_day_loc_bought"] = float(boughts)/(days+0.1)
             result[merchanId]["each_location"][locationId]["percent_loc_user"] = float(users)/(result[merchanId]["numOfUser"]+0.1)
             result[merchanId]["each_location"][locationId]["per_day_loc_user"] = float(users)/(days+0.1)
+        result[merchanId]["sigma_location"]  = numpy.var(each_loc_bought)
     merchantFatureFile = "../../gen_data/cxq_koubei_merchant_feature_Before11"
     myfile = file(merchantFatureFile,"w")
     cPickle.dump(result,myfile)
