@@ -1,5 +1,6 @@
 import sys
 
+#feature = getFeatureUtil.getMerchantFeature(map,mid,locid)
 def getMerchantFeature(totalmap,merchantId,locationId):
     feature = []
     map = totalmap[merchantId]
