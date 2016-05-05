@@ -25,21 +25,29 @@ def gen_train(data_file,out_file):
     out = file(out_file,"w")
     #print negative data , 2: user did not buy in this location
     for user, buyMap in user_buy.iteritems():
+        for loc,midMap in buyMap.iteritems():
+            mids = loc2mid[loc]
+            for mid in mids:
+                if not midMap.has_key(mid):
+                    out.write("0\t"+user+"\t"+loc+"\t"+mid+"\n")
+                else:
+                    for i in range(midMap[mid]):
+                        out.write("1\t"+user+"\t"+loc+"\t"+mid+"\n")
+
+    '''    
         for loc, mids in loc2mid.iteritems():
             #user bought in this loc
             if buyMap.has_key(loc):
                 for mid in mids:
                     if not buyMap[loc].has_key(mid):
                         out.write("0\t"+user+"\t"+loc+"\t"+mid+"\n")
-            '''else:  #user not bought in this loc
-                for mid in mids:
-                    out.write("2\t"+user+"\t"+loc+"\t"+mid+"\n")'''
     #print positive data
     for user, buyMap in user_buy.iteritems():
         for loc, midMap in buyMap.iteritems():
             for mid, num in midMap.iteritems():
+                print str(num)
                 for i in range(num):
-                    out.write("1\t"+user+"\t"+loc+"\t"+mid+"\n")
+                    out.write("1\t"+user+"\t"+loc+"\t"+mid+"\n")'''
 
 def gen_test(data_file,out_file):
     global user_buy, loc2mid
@@ -69,21 +77,6 @@ if __name__=="__main__":
 
     #data_file = "../../gen_data/ijcai2016_koubei_trainNov"
     data_file = str(sys.argv[1])
-    with open(data_file,"r") as fin:
-        for line in fin:
-            frags = line.strip().split(",")
-            if len(frags) != 4:
-                continue
-            user = frags[0]
-            mid = frags[1]
-            locId = frags[2]
-            if not user_buy.has_key(user):
-                user_buy[user] = dict()
-            if not user_buy[user].has_key(locId):
-                user_buy[user][locId] = dict()
-            if not user_buy[user][locId].has_key(mid):
-                user_buy[user][locId][mid] = 0
-            user_buy[user][locId][mid] += 1
     out_file = str(sys.argv[2])
     flag = int(sys.argv[3])
     if flag==1:
