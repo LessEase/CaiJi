@@ -38,7 +38,7 @@ def LoadData(filename):
             lid = frags[2]
             mid = frags[3]
             temp = []
-            #temp += getFeatureUtil.getUserFeature(user_map, uid, lid, mid, True)
+            temp += getFeatureUtil.getUserFeature(user_map, uid, lid, mid, True)
             temp += getFeatureUtil.getLocationFeature(location_map, lid, True)
             temp += getFeatureUtil.getMerchantFeature(merchant_map,mid,lid)
             X.append(temp)
@@ -54,8 +54,8 @@ if __name__ == "__main__":
     user_map = cPickle.load(open(user_feature_file,"r"))
     location_map = cPickle.load(open(location_feature_file,"r"))
     merchant_map = cPickle.load(open(merchant_feature_file,"r"))
-    print str(user_map)
-    trainX,trainY = LoadData(train_file)
+    #print str(user_map)
+    trainX,trainY,a = LoadData(train_file)
     print "train load is done" 
     test_file = sys.argv[2]
     user_feature_file = "../../gen_data/user_feature_After7.pkl"
