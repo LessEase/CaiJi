@@ -20,7 +20,7 @@ def ProcessMap(userFeatureMap):
 		resultMap[uid]["location"] = dict()
 		resultMap[uid]["merchant"] = dict()
 		resultMap[uid]["num_of_location"] = len(userFeature.location)
-		resultMap["num_of_merchant"] = len(userFeature.merchant)
+		resultMap[uid]["num_of_merchant"] = len(userFeature.merchant)
 		for lid in userFeature.location:
 			resultMap[uid]["location"][lid] = dict()  
 			resultMap[uid]["location"][lid]["bought"] = userFeature.location[lid]["bought"]
