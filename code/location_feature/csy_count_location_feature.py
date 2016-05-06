@@ -44,6 +44,7 @@ if __name__ == "__main__":
 
 	locationFeatureMap = dict()
 
+	
 	with open("../../ori_data/ijcai2016_merchant_info", "r") as fin:
 		for line in fin: 
 			items = line.strip().split(',')
@@ -57,7 +58,7 @@ if __name__ == "__main__":
 					locationFeatureMap[lid].merchant["total"] = set()
 				
 				locationFeatureMap[lid].num_of_merchant += 1
-	
+
 	infile = sys.argv[1] 
 	outfile = sys.argv[2]
 	with open(infile, "r") as fin:
@@ -67,7 +68,7 @@ if __name__ == "__main__":
 			mid = items[1]
 			lid = items[2]
 			time = items[3]
-			month = str(items[4:6])
+			month = str(time[4:6])
 			if lid not in locationFeatureMap:
 				locationFeatureMap[lid] = LocationFeature()
 				locationFeatureMap[lid].num_of_buy["total"] = 0
@@ -85,7 +86,7 @@ if __name__ == "__main__":
 			locationFeatureMap[lid].num_of_user["total"].add(uid) 
 			locationFeatureMap[lid].num_of_user[month].add(uid) 
 			locationFeatureMap[lid].merchant["total"].add(mid) 
-			locationFeatureMap[lid].merchant[month].add(uid) 
+			locationFeatureMap[lid].merchant[month].add(mid) 
 
 	resultMap = ProcessMap(locationFeatureMap)
 	
