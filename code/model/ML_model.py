@@ -28,7 +28,7 @@ def LoadData(filename):
     X=[]
     Y=[]
     info=[]
-    with open(train_file,"r") as fin:
+    with open(filename,"r") as fin:
         for line in fin:
             frags = line.strip().split("\t")
             if len(frags) != 4:
@@ -54,10 +54,11 @@ if __name__ == "__main__":
     user_map = cPickle.load(open(user_feature_file,"r"))
     location_map = cPickle.load(open(location_feature_file,"r"))
     merchant_map = cPickle.load(open(merchant_feature_file,"r"))
-    #print str(user_map)
+    #print str(location_map)
     trainX,trainY,a = LoadData(train_file)
     print "train load is done" 
     test_file = sys.argv[2]
+    #testX,testY,testInfo = LoadData(test_file)
     user_feature_file = "../../gen_data/user_feature_After7.pkl"
     location_feature_file = "../../gen_data/location_feature_After7.pkl"
     merchant_feature_file = "../../gen_data/merchant_feature_After7"
@@ -65,16 +66,16 @@ if __name__ == "__main__":
     location_map = cPickle.load(open(location_feature_file,"r"))
     merchant_map = cPickle.load(open(merchant_feature_file,"r"))
     testX,testY,testInfo = LoadData(test_file)
-    
+    print "test load is done"    
     clf = RandomForestClassifier(n_estimators=300, criterion='gini', max_depth=20, min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.0, max_features=0.8, max_leaf_nodes=None, bootstrap=True, oob_score=False, n_jobs=4, random_state=None, verbose=0, warm_start=False, class_weight=None)
     clf.fit(trainX, trainY)
-    #clf = joblib.load("model2/rf.m")
-    joblib.dump(clf,"RFmodel/rf.m")
+    #clf = joblib.load("RFmodel/rf.m")
+    #joblib.dump(clf,"RFmodel/rf.m")
     result = clf.predict(testX)
-    out = file("../../gen_data/result.txt","w")
+    out = file("../../gen_data/result2.txt","w")
     for i in range(len(result)):
         if result[i] == 1:
             out.write(testInfo[i]+"\n")
     #scores = cross_val_score(clf, trainX,trainY, scoring=None, cv=2, n_jobs=3, verbose=0, fit_params=None, pre_dispatch='2*n_jobs') 
     #print scores
-    #print metrics.classification_report(validationY,y_pre)
+    #print metrics.classification_report(testY,result)

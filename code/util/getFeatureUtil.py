@@ -66,7 +66,7 @@ def getLocationFeature(map, lid, isTrain):
 		pos += 1
 
 		if month in map[lid]["percent_buy_in_month"]:
-			features[pos] = map[lid]["percent_buy_per_merchant"]
+			features[pos] = map[lid]["percent_buy_in_month"][month]
 		pos += 1
 		
 		return features
