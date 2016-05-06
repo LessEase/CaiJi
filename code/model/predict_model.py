@@ -50,7 +50,7 @@ if __name__ == "__main__":
         temp += getFeatureUtil.getLocationFeature(location_map, lid, True)
         temp += getFeatureUtil.getMerchantFeature(merchant_map,mid,lid)
         testX.append(temp)
-        info.append(uid+","+lid+","+mid)
+        testInfo.append(uid+","+lid+","+mid)
         if len(testY) > 100000:
             result = clf.predict(testX)
             for i in range(len(result)):
