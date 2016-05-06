@@ -6,5 +6,5 @@
 #########################################################################
 #!/bin/bash
 
-python scores.py ../../gen_data/submission.csv ../../gen_data/submission.csv
+#python scores.py ../../gen_data/predicted_result.csv ../../gen_data/real_answer.csv
 
