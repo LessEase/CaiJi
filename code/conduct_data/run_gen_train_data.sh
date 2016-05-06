@@ -10,7 +10,7 @@ function Sample()
 {
     positive_num=`cat ../../gen_data/trainSample_positive | wc -l`
     negative_num=`cat ../../gen_data/trainSample_negative | wc -l`
-    sample_num=$[ $positive_num * 2 ]
+    sample_num=$[ $positive_num * 10 ]
     python randomSampling.py $negative_num $sample_num ../../gen_data/trainSample_negative ../../gen_data/trainSample_negative_sampling
     cat ../../gen_data/trainSample_positive ../../gen_data/trainSample_negative_sampling > ../../gen_data/trainSample
 }
