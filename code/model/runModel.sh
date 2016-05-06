@@ -7,10 +7,8 @@
 #!/bin/bash
 
 start=$(date +%s)
-echo "Training model..."
 python ML_model.py ../../gen_data/trainSample ../../gen_data/testSample
 end=$(date +%s)
 
-echo "end"
 echo "time cost: "+$(($end-start))
 
