@@ -23,28 +23,6 @@ user_feature_file = ""
 location_feature_file = ""
 merchant_feature_file = ""
 
-def LoadData(filename):
-    global user_map, location_map, merchant_map
-    X=[]
-    Y=[]
-    info=[]
-    with open(filename,"r") as fin:
-        for line in fin:
-            frags = line.strip().split("\t")
-            if len(frags) != 4:
-                continue
-            Y.append(int(frags[0]))
-            uid = frags[1]
-            lid = frags[2]
-            mid = frags[3]
-            temp = []
-            temp += getFeatureUtil.getUserFeature(user_map, uid, lid, mid, True)
-            temp += getFeatureUtil.getLocationFeature(location_map, lid, True)
-            temp += getFeatureUtil.getMerchantFeature(merchant_map,mid,lid)
-            X.append(temp)
-            info.append(uid+","+lid+","+mid)
-    return X, Y,info
-    
 
 if __name__ == "__main__":
     user_feature_file = "../../gen_data/user_feature_After7.pkl"
