@@ -1,0 +1,15 @@
+
+1,先运行gen_xgboost_input_format_data.sh, 得到xgboost要求的输入格式的训练数据和测试数据
+
+2,执行../../util/xgboost model.conf, 进行训练, 其中xgboost为编译好的xgboost的程序，model.conf中为模型的参数
+(训练数据和测试数据的文件名也在里面配置), 最后在当前目录在得到一个以.model为后缀的文件，我这边得到的是"0300.model",
+不确定是不是都一样的，这是训练好的模型
+
+3,执行../../util/xgboost model.conf task=pred model_in=0300.model, 预测后在当前目录会出现一个pred.txt,为每个测试案例的分数
+
+4,执行gen_predicted_positive_sample.sh,得到所有预测出来的正例,
+
+5,还需执行util中的genSubmission.sh才能得到提交的格式的文件
+
+ps:xgboost得在自己系统上编译，我这边编译好的你那边可能用不了，所以就没有上传了
+
