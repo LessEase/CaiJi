@@ -10,5 +10,5 @@ start=$(date +%s)
 python ML_model.py ../../gen_data/trainSample ../../gen_data/testSample
 end=$(date +%s)
 
-echo "time cost: "+$(($end-start))
+echo "time cost: "+$(($end-$start))
 

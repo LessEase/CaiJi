@@ -60,10 +60,7 @@ if __name__ == "__main__":
             testY = []
             testInfo = []
     result = clf.predict(testX)
-    #result = clf.predict_proba(testX)
     for i in range(len(result)):
-        #out.write(testInfo[i]+","+str(result[i][0])+","+str(result[i][1])+","+"\n")
         if result[i] == 1:
             out.write(testInfo[i]+"\n")
-
     #print metrics.classification_report(testY,result)
