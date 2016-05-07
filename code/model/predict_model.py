@@ -46,8 +46,8 @@ if __name__ == "__main__":
         lid = frags[2]
         mid = frags[3]
         temp = []
-        temp += getFeatureUtil.getUserFeature(user_map, uid, lid, mid, True)
-        temp += getFeatureUtil.getLocationFeature(location_map, lid, True)
+        temp += getFeatureUtil.getUserFeature(user_map, uid, lid, mid, False)
+        temp += getFeatureUtil.getLocationFeature(location_map, lid, False)
         temp += getFeatureUtil.getMerchantFeature(merchant_map,mid,lid)
         testX.append(temp)
         testInfo.append(uid+","+lid+","+mid)
