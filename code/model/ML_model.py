@@ -68,7 +68,7 @@ if __name__ == "__main__":
     merchant_map = cPickle.load(open(merchant_feature_file,"r"))
     testX,testY,testInfo = LoadData(test_file)'''
     print "test load is done"    
-    clf = RandomForestClassifier(n_estimators=300, criterion='gini', max_depth=20, min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.0, max_features=0.8, max_leaf_nodes=None, bootstrap=True, oob_score=False, n_jobs=4, random_state=None, verbose=0, warm_start=False, class_weight=None)
+    clf = RandomForestClassifier(n_estimators=400, criterion='gini', max_depth=20, min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.0, max_features=0.8, max_leaf_nodes=None, bootstrap=True, oob_score=False, n_jobs=4, random_state=None, verbose=0, warm_start=False, class_weight=None)
     clf.fit(trainX, trainY)
     #clf = joblib.load("RFmodel/rf.m")
     joblib.dump(clf,"RFmodel/rf.m")
