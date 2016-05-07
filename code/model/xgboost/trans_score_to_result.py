@@ -5,6 +5,7 @@ if __name__ == "__main__":
 
 	infoFile = sys.argv[1]
 	predictedFile = sys.argv[2]
+	outputFile = sys.argv[3]
 	
 	info = []
 	predicted = []
@@ -14,7 +15,7 @@ if __name__ == "__main__":
 			predicted.append(score)
 	
 
-	result = open("result.txt", "w")
+	result = open(outputFile, "w")
 
 	with open(infoFile, "r") as fin:
 		counter = 0
