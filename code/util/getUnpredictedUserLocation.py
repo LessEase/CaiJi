@@ -3,7 +3,7 @@
 
 import sys
 
-def getUnpredictedFile(predicted_file, all_file):
+def getUnpredictedFile(predicted_file, all_file="../gen_data/ijcai2016_koubei_test"):
 
 	predicted_result = set()
 	not_predicted_result = set()
