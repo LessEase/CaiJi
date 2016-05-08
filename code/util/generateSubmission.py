@@ -27,6 +27,6 @@ if __name__ == "__main__":
             line = ""
             for lid, mids in result[uid].items():
                 line = uid + "," + lid + "," + ":".join(list(mids))
-				fout.write(line + "\n")
+                fout.write(line + "\n")
 
 
