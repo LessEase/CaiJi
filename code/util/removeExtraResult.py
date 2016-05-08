@@ -10,22 +10,24 @@ with open("../../ori_data/ijcai2016_merchant_info","r") as fin:
         mid = frags[0]
         budget = frags[1]
         merchant_map[mid] = budget
-pre_mid = ""
+pre_user = ""
+pre_lic = ""
+i = 0
 for line in sys.stdin:
     frags = line.strip().split(",")
     uid = frags[0]
     lid = frags[1]
     mid = frags[2]
     score = float(frags[3])
-    i = 0
-    if mid != pre_mid:
-        pre_mid = mid
+    if uid != pre_user or lid != pre_lic:
+        pre_user = uid
+        pre_lic = lid
         i = 1
-        if i <= merchant_map[pre_mid]:
+        if i < 4:
             print uid + "," + lid + "," + mid
     else:
         i+=1
-        if i <= merchant_map[pre_mid]:
+        if i < 4:
             print uid + "," + lid + "," + mid
 
 

@@ -32,8 +32,8 @@ if __name__ == "__main__":
     location_map = cPickle.load(open(location_feature_file,"r"))
     merchant_map = cPickle.load(open(merchant_feature_file,"r"))
     #clf = RandomForestClassifier(n_estimators=300, criterion='gini', max_depth=20, min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.0, max_features=0.8, max_leaf_nodes=None, bootstrap=True, oob_score=False, n_jobs=4, random_state=None, verbose=0, warm_start=False, class_weight=None)
-    clf = joblib.load("RFmodel_maxFeature_changed/rf.m")
-    out = file("../../gen_data/result_rf_changeFeature.txt","w")
+    clf = joblib.load("RFmodel_1_3/rf.m")
+    out = file("../../gen_data/result0508.txt","w")
     testX = []
     testY = []
     testInfo = []
