@@ -57,11 +57,12 @@ if __name__ == "__main__":
     trainX,trainY,a = LoadData(train_file)
     print "train load is done" 
     test_file = sys.argv[2]
-    testX,testY,testInfo = LoadData(test_file)
+    #testX,testY,testInfo = LoadData(test_file)
     print "test load is done"    
-    clf = RandomForestClassifier(n_estimators=300, criterion='gini', max_depth=35, min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.0, max_features=0.8, max_leaf_nodes=None, bootstrap=True, oob_score=False, n_jobs=8, random_state=None, verbose=1, warm_start=False, class_weight=None)
+    clf = RandomForestClassifier(n_estimators=300, criterion='gini', max_depth=30, min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.0, max_features=0.5, max_leaf_nodes=None, bootstrap=True, oob_score=False, n_jobs=8, random_state=None, verbose=1, warm_start=False, class_weight=None)
+    #clf = GradientBoostingClassifier(loss='deviance',n_jobs=-1, learning_rate=0.1, n_estimators=3000, subsample=1.0, min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.0, max_depth=3, init=None, random_state=None, max_features=0.8, verbose=0, max_leaf_nodes=None, warm_start=False, presort='auto')
     clf.fit(trainX, trainY)
     #clf = joblib.load("RFmodel/rf.m")
-    joblib.dump(clf,"RFmodel_1_3/rf.m")
-    result = clf.predict(testX)
-    print metrics.classification_report(testY,result)
+    joblib.dump(clf,"RFmodel_maxFeature_changed/rf.m")
+    #result = clf.predict(testX)
+    #print metrics.classification_report(testY,result)
