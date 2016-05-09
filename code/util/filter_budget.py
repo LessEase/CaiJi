@@ -22,15 +22,15 @@ for line in sys.stdin:
         pre_mid = mid
         pre_user = uid
         pre_lic = lid
-        if i> merchant_map[mid]:
-            print mid + "\t" + str(i)
+        #if i> merchant_map[mid]:
+         #   print mid + "\t" + str(i)
         i = 1
-        #if i <= merchant_map[mid]:
-           # print uid + "," + lid + "," + mid
+        if i <= merchant_map[mid]:
+            print uid + "," + lid + "," + mid
     else:
         i+=1
-        #if i <= merchant_map[mid]:
-        #    print uid + "," + lid + "," + mid
+        if i <= merchant_map[mid]:
+            print uid + "," + lid + "," + mid
         #if i> merchant_map[mid]:
          #   print mid + "\t" + str(i)
 

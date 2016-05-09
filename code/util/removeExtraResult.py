@@ -23,11 +23,11 @@ for line in sys.stdin:
         pre_user = uid
         pre_lic = lid
         i = 1
-        if i < 4:
+        if i < 3:
             print uid + "," + lid + "," + mid
     else:
         i+=1
-        if i < 4:
+        if i < 3:
             print uid + "," + lid + "," + mid
 
 
