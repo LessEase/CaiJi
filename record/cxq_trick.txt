@@ -1,0 +1,2 @@
+从uid+lid中选出top3,然后根据merchant的budget过滤掉得分低的结果，对于没有预测的user，使用hot_merchant进行填补
+
