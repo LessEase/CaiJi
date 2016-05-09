@@ -1,0 +1,3 @@
+1:2的比例，从uid+lid中选出top3,然后根据merchant的budget过滤掉得分低的结果，对于没有预测的user，使用hot_merchant进行填补  成绩为：0.38374500 文件：csy_submission_top3_budget_hot.csv
+1:2的比例，从uid+lid中选出top3,然后根据merchant的budget过滤掉得分低的结果，对于没有预测的user，使用hot_merchant进行填补, hot top2. 文件： csy_version1_submission_top3_hot2.csv
+1:5的比例，从uid+lid中选出top3,然后根据merchant的budget过滤掉得分低的结果，对于没有预测的user，使用hot_merchant进行填补, hot top1. 文件： csy_version2_submission_top3_hot1.csv
