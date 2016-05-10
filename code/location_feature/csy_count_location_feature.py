@@ -52,7 +52,6 @@ if __name__ == "__main__":
 	locationFeatureMap = dict()
 
 	
-	'''
 	with open("../../ori_data/ijcai2016_merchant_info", "r") as fin:
 		for line in fin: 
 			items = line.strip().split(',')
@@ -66,7 +65,6 @@ if __name__ == "__main__":
 					locationFeatureMap[lid].merchant["total"] = dict()
 				
 				locationFeatureMap[lid].num_of_merchant += 1
-	'''
 	infile = sys.argv[1] 
 	outfile = sys.argv[2]
 	with open(infile, "r") as fin:
