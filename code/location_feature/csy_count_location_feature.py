@@ -27,6 +27,7 @@ def ProcessMap(locationFeatureMap):
 		resultMap[lid]["avg_buy_per_merchant"] = dict()
 		resultMap[lid]["avg_buy_per_user"] = dict()
 		resultMap[lid]["percent_buy_in_month"] = dict()
+		resultMap[lid]["specific_merchant"] = dict()
 		for month, value in locationFeatureMap[lid].num_of_buy.items(): 
 			resultMap[lid]["num_of_buy"][month] = value
 		for month, value in locationFeatureMap[lid].num_of_user.items(): 
@@ -36,6 +37,12 @@ def ProcessMap(locationFeatureMap):
 			resultMap[lid]["avg_buy_per_merchant"][month] = float(resultMap[lid]["num_of_buy"][month])/(len(value)+0.1)
 			resultMap[lid]["avg_buy_per_user"][month] = float(resultMap[lid]["num_of_buy"][month])/(resultMap[lid]["num_of_user"][month]+0.1)
 			resultMap[lid]["percent_buy_in_month"][month] = float(resultMap[lid]["num_of_buy"][month])/float(resultMap[lid]["num_of_buy"]["total"] + 0.1)
+			resultMap[lid]["specific_merchant"][month] = dict()
+			for mid, count in value.items():  
+				if mid not in resultMap[lid]["specific_merchant"][month]: 
+					resultMap[lid]["specific_merchant"][month][mid] = dict()
+				resultMap[lid]["specific_merchant"][month][mid]["count"] = count
+				resultMap[lid]["specific_merchant"][month][mid]["percent"] = float(count)/float(resultMap[lid]["num_of_buy"][month]+0.1)
 	
 	return resultMap
 
@@ -45,6 +52,7 @@ if __name__ == "__main__":
 	locationFeatureMap = dict()
 
 	
+	'''
 	with open("../../ori_data/ijcai2016_merchant_info", "r") as fin:
 		for line in fin: 
 			items = line.strip().split(',')
@@ -55,10 +63,10 @@ if __name__ == "__main__":
 					locationFeatureMap[lid] = LocationFeature()
 					locationFeatureMap[lid].num_of_buy["total"] = 0
 					locationFeatureMap[lid].num_of_user["total"] = set()
-					locationFeatureMap[lid].merchant["total"] = set()
+					locationFeatureMap[lid].merchant["total"] = dict()
 				
 				locationFeatureMap[lid].num_of_merchant += 1
-
+	'''
 	infile = sys.argv[1] 
 	outfile = sys.argv[2]
 	with open(infile, "r") as fin:
@@ -73,20 +81,25 @@ if __name__ == "__main__":
 				locationFeatureMap[lid] = LocationFeature()
 				locationFeatureMap[lid].num_of_buy["total"] = 0
 				locationFeatureMap[lid].num_of_user["total"] = set()
-				locationFeatureMap[lid].merchant["total"] = set()
+				locationFeatureMap[lid].merchant["total"] = dict()
 			
 			if month not in locationFeatureMap[lid].num_of_buy:
 				locationFeatureMap[lid].num_of_buy[month] = 0
 				locationFeatureMap[lid].num_of_user[month] = set()
-				locationFeatureMap[lid].merchant[month] = set()
+				locationFeatureMap[lid].merchant[month] = dict()
 
 
 			locationFeatureMap[lid].num_of_buy["total"] += 1
 			locationFeatureMap[lid].num_of_buy[month] += 1
 			locationFeatureMap[lid].num_of_user["total"].add(uid) 
 			locationFeatureMap[lid].num_of_user[month].add(uid) 
-			locationFeatureMap[lid].merchant["total"].add(mid) 
-			locationFeatureMap[lid].merchant[month].add(mid) 
+			if mid not in locationFeatureMap[lid].merchant["total"]:
+				locationFeatureMap[lid].merchant["total"][mid] = 0
+			if mid not in locationFeatureMap[lid].merchant[month]:
+				locationFeatureMap[lid].merchant[month][mid] = 0
+
+			locationFeatureMap[lid].merchant["total"][mid] += 1 
+			locationFeatureMap[lid].merchant[month][mid] += 1 
 
 	resultMap = ProcessMap(locationFeatureMap)
 	

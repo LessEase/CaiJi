@@ -29,8 +29,8 @@ def getMerchantFeature(totalmap,merchantId,locationId):
         feature.append(0)
     return feature
 
-def getLocationFeature(map, lid, isTrain):
-	features = [0.0] * (5*6+1)   
+def getLocationFeature(map, lid, mid, isTrain):
+	features = [0.0] * (5*8+1)   
 
 	if lid not in map:
 		return features 
@@ -68,8 +68,18 @@ def getLocationFeature(map, lid, isTrain):
 		if month in map[lid]["percent_buy_in_month"]:
 			features[pos] = map[lid]["percent_buy_in_month"][month]
 		pos += 1
+
+		if month in map[lid]["specific_merchant"] \
+				and mid in map[lid]["specific_merchant"][month]:
+			features[pos] = map[lid]["specific_merchant"][month][mid]["count"]
+			pos += 1
+			features[pos] = map[lid]["specific_merchant"][month][mid]["percent"]
+			pos += 1
+		else:
+			pos += 2
+			
 		
-		return features
+	return features
 
 def getUserFeature(map, uid, lid, mid, isTrain):
 
