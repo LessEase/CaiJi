@@ -1,3 +1,10 @@
 1:2的比例，从uid+lid中选出top3,然后根据merchant的budget过滤掉得分低的结果，对于没有预测的user，使用hot_merchant进行填补  成绩为：0.38374500 文件：csy_submission_top3_budget_hot.csv
-1:2的比例，从uid+lid中选出top3,然后根据merchant的budget过滤掉得分低的结果，对于没有预测的user，使用hot_merchant进行填补, hot top2. 文件： csy_version1_submission_top3_hot2.csv
-1:5的比例，从uid+lid中选出top3,然后根据merchant的budget过滤掉得分低的结果，对于没有预测的user，使用hot_merchant进行填补, hot top1. 文件： csy_version2_submission_top3_hot1.csv
+1:2的比例，从uid+lid中选出top3,然后根据merchant的budget过滤掉得分低的结果，对于没有预测的user，使用hot_merchant进行填补, hot top2,阈值1000. 文件： csy_version1_submission_top3_hot2.csv 0.38439149
+1:5的比例，从uid+lid中选出top3,然后根据merchant的budget过滤掉得分低的结果，对于没有预测的user，使用hot_merchant进行填补, hot top1. 文件： csy_version2_submission_top3_hot1.csv  0.34087367
+1:2的比例，从uid+lid中选出top3,然后根据merchant的budget过滤掉得分低的结果，对于没有预测的user，使用hot_merchant进行填补, hot top2,阈值2000. 文件： csy_version1_submission_top3_hot2.csv 0.38549496
+1:2的比例，从uid+lid中选出top3,然后根据merchant的budget过滤掉得分低的结果，对于没有预测的user，使用hot_merchant进行填补, hot top2,阈值2500. 文件： csy_version1_submission_top3_hot2.csv 0.38548201
+1:2的比例, 从预测的到的结果中，重新统计特征，建立第二步模型，对于没有预测的user，使用hot_merchant的hot1进行填补，结果：0.35532885
+1:2的比例, 从预测的到的结果中，重新统计特征，建立第二步模型，选top3， 对于没有预测的user，使用hot_merchant的hot1进行填补，结果：0.3793171
+1:10的比例，用xgboost跑的模型，改过bug，加上了新特征，top3，hot1，成绩：0.3840957
+1:10的比例，用xgboost跑的模型，改过bug，加上了新特征，成绩：0.35896661
+1:10的比例，用xgboost跑的模型,不改bug，不要location的特征，成绩：0.38991656  文件： cxq_submission_xgboost_oldVersion_top3_hot1.csv
