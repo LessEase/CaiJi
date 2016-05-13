@@ -43,7 +43,7 @@ def ProcessMap(locationFeatureMap):
 			resultMap[lid]["specific_merchant"][month] = dict()
 			
 			buy = sorted(value.items(), key=lambda v: v[1]["buy"])
-			idx = 1
+			idx = 6000
 			for i in xrange(len(buy)):
 				mid = buy[i][0]
 				count = buy[i][1]["buy"]
@@ -55,11 +55,11 @@ def ProcessMap(locationFeatureMap):
 					resultMap[lid]["specific_merchant"][month][mid]["buy_idx"] = idx
 				else:
 					if buy[i][1]["buy"] != buy[i-1][1]["buy"]:
-						idx += 1
+						idx -= 1
 					resultMap[lid]["specific_merchant"][month][mid]["buy_idx"] = idx
 
 			user = sorted(value.items(), key=lambda v: len(v[1]["user"]))
-			idx = 1 
+			idx = 6000
 			for i in xrange(len(user)):
 				mid = user[i][0]
 				count = len(user[i][1]["user"])
@@ -72,7 +72,7 @@ def ProcessMap(locationFeatureMap):
 					resultMap[lid]["specific_merchant"][month][mid]["user_idx"] = idx
 				else:
 					if user[i][1] != user[i-1][1]:
-						idx += 1
+						idx -= 1
 					resultMap[lid]["specific_merchant"][month][mid]["user_idx"] = idx
 	
 	return resultMap
