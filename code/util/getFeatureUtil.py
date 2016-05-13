@@ -91,22 +91,26 @@ def getLocationFeature(map, lid, mid, isTrain):
 
 def getUserFeature(map, uid, lid, mid, isTrain):
 
-	features = [0.0] * 9 
+	features = [0] * 17
 	if uid not in map:
 		return features
 
 	user = map[uid]
-	features[0] = float(user["num_of_location"])
-	features[1] = float(user["num_of_merchant"])
-	
-	pos = 2
+	features[0] = user["num_of_location"]
+	features[1] = user["num_of_merchant"]
+	features[2] = user["total_bought"]
+	pos = 3
 	if lid not in user["location"]:
-		pos += 2
+		pos += 4
 	else:
 		location = user["location"][lid]
-		features[pos] = float(location["bought"])
+		features[pos] = location["bought"]
 		pos += 1
-		features[pos] = float(location["bought_merchant"])
+		features[pos] = location["bought_merchant"]
+		pos += 1
+		features[pos] = location["bought"]/float(user["total_bought"])
+		pos += 1
+		features[pos] = location["bought_merchant"]/float(user["num_of_merchant"])
 		pos += 1
 
 	months = ["08", "09", "10", "11", "total"]
@@ -120,11 +124,13 @@ def getUserFeature(map, uid, lid, mid, isTrain):
 		merchant = user["merchant"][mid]
 		for month in months:
 			if month in merchant:
-				features[pos] = float(merchant[month])
-			pos += 1
+				features[pos] = merchant[month]
+				pos += 1
+				features[pos] = merchant[month]/float(merchant["total"])
+				pos += 1
+			else:
+				pos += 2
 
-				
-	
 	return features
 
 
