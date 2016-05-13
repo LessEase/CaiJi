@@ -28,21 +28,52 @@ def ProcessMap(locationFeatureMap):
 		resultMap[lid]["avg_buy_per_user"] = dict()
 		resultMap[lid]["percent_buy_in_month"] = dict()
 		resultMap[lid]["specific_merchant"] = dict()
+
 		for month, value in locationFeatureMap[lid].num_of_buy.items(): 
 			resultMap[lid]["num_of_buy"][month] = value
+
 		for month, value in locationFeatureMap[lid].num_of_user.items(): 
 			resultMap[lid]["num_of_user"][month] = len(value) 
+
 		for month, value in locationFeatureMap[lid].merchant.items(): 
 			resultMap[lid]["num_of_merchant"][month] = len(value)
 			resultMap[lid]["avg_buy_per_merchant"][month] = float(resultMap[lid]["num_of_buy"][month])/(len(value)+0.1)
 			resultMap[lid]["avg_buy_per_user"][month] = float(resultMap[lid]["num_of_buy"][month])/(resultMap[lid]["num_of_user"][month]+0.1)
 			resultMap[lid]["percent_buy_in_month"][month] = float(resultMap[lid]["num_of_buy"][month])/float(resultMap[lid]["num_of_buy"]["total"] + 0.1)
 			resultMap[lid]["specific_merchant"][month] = dict()
-			for mid, count in value.items():  
+			
+			buy = sorted(value.items(), key=lambda v: v[1]["buy"])
+			idx = 1
+			for i in xrange(len(buy)):
+				mid = buy[i][0]
+				count = buy[i][1]["buy"]
 				if mid not in resultMap[lid]["specific_merchant"][month]: 
 					resultMap[lid]["specific_merchant"][month][mid] = dict()
-				resultMap[lid]["specific_merchant"][month][mid]["count"] = count
-				resultMap[lid]["specific_merchant"][month][mid]["percent"] = float(count)/float(resultMap[lid]["num_of_buy"][month]+0.1)
+				resultMap[lid]["specific_merchant"][month][mid]["buy_count"] = count
+				resultMap[lid]["specific_merchant"][month][mid]["buy_percent"] = float(count)/float(resultMap[lid]["num_of_buy"][month]+0.1)
+				if i == 0:
+					resultMap[lid]["specific_merchant"][month][mid]["buy_idx"] = idx
+				else:
+					if buy[i][1]["buy"] != buy[i-1][1]["buy"]:
+						idx += 1
+					resultMap[lid]["specific_merchant"][month][mid]["buy_idx"] = idx
+
+			user = sorted(value.items(), key=lambda v: len(v[1]["user"]))
+			idx = 1 
+			for i in xrange(len(user)):
+				mid = user[i][0]
+				count = len(user[i][1]["user"])
+
+				if mid not in resultMap[lid]["specific_merchant"][month]: 
+					resultMap[lid]["specific_merchant"][month][mid] = dict()
+				resultMap[lid]["specific_merchant"][month][mid]["user_count"] = count
+				resultMap[lid]["specific_merchant"][month][mid]["user_percent"] = float(count)/float(resultMap[lid]["num_of_user"][month]+0.1)
+				if i == 0:
+					resultMap[lid]["specific_merchant"][month][mid]["user_idx"] = idx
+				else:
+					if user[i][1] != user[i-1][1]:
+						idx += 1
+					resultMap[lid]["specific_merchant"][month][mid]["user_idx"] = idx
 	
 	return resultMap
 
@@ -50,7 +81,6 @@ def ProcessMap(locationFeatureMap):
 if __name__ == "__main__":
 
 	locationFeatureMap = dict()
-
 	
 	with open("../../ori_data/ijcai2016_merchant_info", "r") as fin:
 		for line in fin: 
@@ -92,12 +122,20 @@ if __name__ == "__main__":
 			locationFeatureMap[lid].num_of_user["total"].add(uid) 
 			locationFeatureMap[lid].num_of_user[month].add(uid) 
 			if mid not in locationFeatureMap[lid].merchant["total"]:
-				locationFeatureMap[lid].merchant["total"][mid] = 0
+				locationFeatureMap[lid].merchant["total"][mid] = dict()
+				locationFeatureMap[lid].merchant["total"][mid]["buy"] = 0
+				locationFeatureMap[lid].merchant["total"][mid]["user"] = set()
 			if mid not in locationFeatureMap[lid].merchant[month]:
-				locationFeatureMap[lid].merchant[month][mid] = 0
+				locationFeatureMap[lid].merchant[month][mid] = dict()
+				locationFeatureMap[lid].merchant[month][mid]["buy"] = 0
+				locationFeatureMap[lid].merchant[month][mid]["user"] = set()
 
-			locationFeatureMap[lid].merchant["total"][mid] += 1 
-			locationFeatureMap[lid].merchant[month][mid] += 1 
+			locationFeatureMap[lid].merchant["total"][mid]["buy"] += 1 
+			locationFeatureMap[lid].merchant[month][mid]["buy"] += 1 
+			if uid not in locationFeatureMap[lid].merchant["total"][mid]["user"]:
+				locationFeatureMap[lid].merchant["total"][mid]["user"].add(uid) 
+			if uid not in locationFeatureMap[lid].merchant[month][mid]["user"]:
+				locationFeatureMap[lid].merchant[month][mid]["user"].add(uid)  
 
 	resultMap = ProcessMap(locationFeatureMap)
 	

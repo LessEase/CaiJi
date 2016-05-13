@@ -38,9 +38,9 @@ def getLocationFeature(map, lid, mid, isTrain):
 	features[0] = map[lid]["total"]
 	months = []
 	if isTrain:
-		months = ["07", "08", "09", "10", "total"]
+		months = ["10", "total"]
 	else:
-		months = ["08", "09", "10", "11", "total"]
+		months = ["11", "total"]
 	pos = 1
 	for month in months: 
 		if month in map[lid]["num_of_buy"]:
@@ -71,12 +71,20 @@ def getLocationFeature(map, lid, mid, isTrain):
 
 		if month in map[lid]["specific_merchant"] \
 				and mid in map[lid]["specific_merchant"][month]:
-			features[pos] = map[lid]["specific_merchant"][month][mid]["count"]
+			features[pos] = map[lid]["specific_merchant"][month][mid]["buy_count"]
 			pos += 1
-			features[pos] = map[lid]["specific_merchant"][month][mid]["percent"]
+			features[pos] = map[lid]["specific_merchant"][month][mid]["buy_percent"]
+			pos += 1
+			features[pos] = map[lid]["specific_merchant"][month][mid]["buy_idx"]
+			pos += 1
+			features[pos] = map[lid]["specific_merchant"][month][mid]["user_count"]
+			pos += 1
+			features[pos] = map[lid]["specific_merchant"][month][mid]["user_percent"]
+			pos += 1
+			features[pos] = map[lid]["specific_merchant"][month][mid]["user_idx"]
 			pos += 1
 		else:
-			pos += 2
+			pos += 6
 			
 		
 	return features
