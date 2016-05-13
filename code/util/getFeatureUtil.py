@@ -126,4 +126,43 @@ def getUserFeature(map, uid, lid, mid, isTrain):
 				
 	
 	return features
-		
+
+
+def getAddedMerchantFeatures(resultMap, mid, lid, isTrain):
+
+	features = [0] * (17)
+	
+	if mid not in resultMap:
+		return features
+
+	merchant = resultMap[mid]
+
+	pos = 0
+
+	months = ["08", "09", "10", "11", "total"]
+	if isTrain:
+		months = ["07", "08", "09", "10", "total"]
+
+	features[pos] = merchant["max_active_day"] 
+	pos += 1
+	features[pos] = merchant["percent_old_user"] 
+	pos += 1
+
+	for month in months:
+		if month in merchant["ratio_bought_in_month"]:
+			features[pos] = merchant["ratio_bought_in_month"][month]
+		pos += 1
+		if month in merchant["active_day_in_month"]:
+			features[pos] = merchant["active_day_in_month"][month]
+		pos += 1
+	
+	if lid in merchant["specific_location"]:
+		for month in months:
+			if month in merchant["specific_location"][lid]:
+				features[pos] = merchant["specific_location"][lid][month]
+
+			pos += 1
+
+	return features
+
+
