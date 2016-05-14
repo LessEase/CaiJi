@@ -11,22 +11,26 @@ import getFeatureUtil
 user_map = dict()
 location_map = dict()
 merchant_map = dict()
+added_merchant_map = dict()
+added_user_map = dict()
 
 def transform(infile, outfile, isTrain=True):
 
-	global user_map, location_map, merchant_map
+	global user_map, location_map, merchant_map, added_user_map, added_merchant_map
 
 	if isTrain:
 		user_map = cPickle.load(open("../../../gen_data/user_feature_Before11.pkl","r"))
 		location_map = cPickle.load(open("../../../gen_data/location_feature_Before11.pkl", "r"))
 		merchant_map = cPickle.load(open("../../../gen_data/merchant_feature_Before11", "r"))
 		added_merchant_map = cPickle.load(open("../../../gen_data/added_merchant_feature_before11.pkl", "r"))
+		added_user_map = cPickle.load(open("../../../gen_data/cxq_added_user_feature_Before11.pkl","r"))
 	else:
 		user_map = cPickle.load(open("../../../gen_data/user_feature_After7.pkl", "r"))
 		location_map = cPickle.load(open("../../../gen_data/location_feature_After7.pkl", "r"))
 		merchant_map = cPickle.load(open("../../../gen_data/merchant_feature_After7", "r"))
 		added_merchant_map = cPickle.load(open("../../../gen_data/added_merchant_feature_after7.pkl", "r"))
-	
+		added_user_map = cPickle.load(open("../../../gen_data/cxq_added_user_feature_After7.pkl","r"))
+
 
 	merchantIdMap = cPickle.load(open("merchant_id_map.pkl", "r"))
 	locationIdMap = cPickle.load(open("location_id_map.pkl", "r"))
@@ -43,7 +47,8 @@ def transform(infile, outfile, isTrain=True):
 			temp += getFeatureUtil.getLocationFeature(location_map, lid, mid, isTrain)
 			temp += getFeatureUtil.getMerchantFeature(merchant_map, mid, lid)
 			temp += getFeatureUtil.getAddedMerchantFeature(added_merchant_map, mid, lid, isTrain)
-			
+			temp += getFeatureUtil.getAddedUserFeature(added_user_map,uid,lid,mid,isTrain)
+
 			one_output = label 
 			for i in xrange(len(temp)):
 				if temp[i] > 0.0000001: 
