@@ -1,28 +1,27 @@
 function Gen_data()
 {
-    #生成11月1号到23号的训练数据，有正例、负例
-    python gen_train_data.py ../../gen_data/ijcai2016_koubei_trainNov_01_23 ../../gen_data/train_temp_01_23 1
-    awk -F'\t' '{if($1==1)print $0}' ../../gen_data/train_temp_01_23 > ../../gen_data/trainSample_positive_01_23
-    awk -F'\t' '{if($1==0)print $0}' ../../gen_data/train_temp_01_23 > ../../gen_data/trainSample_negative_01_23
-    #生成11月24日到11月30日的验证数据，有正例、负例
-    python gen_train_data.py ../../gen_data/ijcai2016_koubei_trainNov_24_30 ../../gen_data/train_temp_24_30 1
+    #生成11月份的训练数据，有正例、负例
+    python gen_train_data.py ../validate/data/koubei_splited_train_data_Nov ../validate/data/train_temp 1
+    awk -F'\t' '{if($1==1)print $0}' ../validate/data/train_temp > ../validate/data/trainSample_positive
+    awk -F'\t' '{if($1==0)print $0}' ../validate/data/train_temp > ../validate/data/trainSample_negative
+    #生成11月的验证数据，有正例、负例
+    python gen_train_data.py ../validate/data/koubei_splited_val_data_Nov ../validate/data/validationSample 1
     #python gen_train_data.py ../../ori_data/ijcai2016_koubei_test ../../gen_data/testSample 2
 }
 
 function Sample()
 {
-    positive_num=`cat ../../gen_data/trainSample_positive_01_23 | wc -l`
-    negative_num=`cat ../../gen_data/trainSample_negative_01_23 | wc -l`
-    sample_num=$[ $positive_num * 3 ]
-    python randomSampling.py $negative_num $sample_num ../../gen_data/trainSample_negative_01_23 ../../gen_data/trainSample_negative_sampling_01_23
-    cat ../../gen_data/trainSample_positive_01_23 ../../gen_data/trainSample_negative_sampling_01_23 > ../../gen_data/trainSample_01_23
+    positive_num=`cat ../validate/data/trainSample_positive | wc -l`
+    negative_num=`cat ../validate/data/trainSample_negative | wc -l`
+    sample_num=$[ $positive_num * 10 ]
+    python randomSampling.py $negative_num $sample_num ../validate/data/trainSample_negative  ../validate/data/trainSample_negative_sampling 
+    cat ../validate/data/trainSample_positive ../validate/data/trainSample_negative_sampling  > ../validate/data/trainSample
 }
 
 function Run()
 {
     Gen_data;
     Sample;
-    #sh run_splitTrain.sh
 }
 
 Run;

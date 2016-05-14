@@ -10,8 +10,6 @@ def gen_train(data_file,out_file):
     with open(data_file,"r") as fin:
         for line in fin:
             frags = line.strip().split(",")
-            if len(frags) != 4:
-                continue
             user = frags[0]
             mid = frags[1]
             locId = frags[2]
@@ -55,8 +53,6 @@ def gen_test(data_file,out_file):
     with open(data_file,"r") as fin:
         for line in fin:
             frags = line.strip().split(",")
-            if len(frags) != 2:
-                continue
             user = frags[0]
             locId = frags[1]
             for mid in loc2mid[locId]:
@@ -66,8 +62,6 @@ if __name__=="__main__":
     with open("../../ori_data/ijcai2016_merchant_info","r") as fin:
         for line in fin:
             frags = line.strip().split(",")
-            if len(frags) != 3:
-                continue
             locList = frags[2].split(":")
             mid = frags[0]
             for loc in locList:
