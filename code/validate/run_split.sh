@@ -6,5 +6,5 @@
 #########################################################################
 #!/bin/bash
 
-python splitUsers.py ../../gen_data/ijcai2016_koubei_trainNov ../../gen_data/ijcai2016_koubei_splited_trainNov ../../gen_data/ijcai2016_koubei_splited_valNov  ./splited_ansNov.csv
+python splitUsers.py ../../ori_data/ijcai2016_koubei_train koubei_splited_train_data koubei_splited_val_data koubei_splited_test_data  data/splited_ansNov.csv
 
