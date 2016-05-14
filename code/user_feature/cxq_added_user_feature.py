@@ -136,12 +136,7 @@ for uid, userObject in userMap.iteritems():
     result[uid]["merchant_rank"] = dict()
     for i in range(len(temp)):
         result[uid]["merchant_rank"][temp[i][0]] = i+1
-print len(result)
-for k,v in result.iteritems():
-    print k+"\t"+str(v)
-'''
 out = open(out_file,"w")
 cPickle.dump(result, fout)
 out.close()
-'''
      
