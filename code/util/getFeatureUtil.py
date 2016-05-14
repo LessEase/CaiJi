@@ -223,7 +223,6 @@ def getAddedUserFeature(resultMap, uid, lid, mid, isTrain):
 			features[pos] = default_period
 		pos += 1
 
-   
 	if user["location"].has_key(lid) and user["location"][lid]["merchant"].has_key(mid):
 		features[pos] = user["location"][lid]["merchant"][mid]["bought"]
 		pos += 1
@@ -246,8 +245,8 @@ def getAddedUserFeature(resultMap, uid, lid, mid, isTrain):
 		features[pos] = user["merchant"][mid]["latest"]
 		pos += 1
 		for month in months:
-			if ["merchant"][mid]["month_period_bought"].has_key(month):
-				features[pos] = ["merchant"][mid]["month_period_bought"][month]
+			if user["merchant"][mid]["month_period_bought"].has_key(month):
+				features[pos] = user["merchant"][mid]["month_period_bought"][month]
 			else:
 				features[pos] = default_period
 			pos += 1
